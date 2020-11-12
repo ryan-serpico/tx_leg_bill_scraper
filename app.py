@@ -1,4 +1,4 @@
-import requests, bs4, csv, os
+import requests, bs4, csv, os, feedparser
 
 os.makedirs('data', exist_ok=True)
 
@@ -60,5 +60,15 @@ def getSenateBills():
     csvFile.close()
     print('Done!')
 
-getHouseBills()
-getSenateBills()
+def getTodaysPassedBills():
+    newsFeed = feedparser.parse('https://capitol.texas.gov/MyTLO/RSS/RSS.aspx?Type=todaysbillspassed')
+
+    entry = newsFeed.entries[0]
+    # print(entry.keys())
+
+    for i in range(len(newsFeed.entries)):
+        print(newsFeed.entries[i].title)
+
+# getHouseBills()
+# getSenateBills()
+# getTodaysPassedBills()
